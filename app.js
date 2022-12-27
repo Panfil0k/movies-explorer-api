@@ -12,8 +12,8 @@ const { requestLogger, errorLogger } = require('./middlewares/logger');
 const options = {
   origin: [
     'http://localhost:3000',
-    'https://panfilok.students.nomoredomains.club',
-    'http://panfilok.students.nomoredomains.club',
+    'https://panfilok.diploma.nomoredomains.club',
+    'http://panfilok.diploma.nomoredomains.club',
   ],
   methods: ['GET', 'HEAD', 'PUT', 'PATCH', 'POST', 'DELETE'],
   preflightContinue: false,
