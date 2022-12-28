@@ -17,7 +17,7 @@ module.exports = (req, res, next) => {
   try {
     payload = jwt.verify(token, NODE_ENV === 'production' ? JWT_SECRET : KEY_SECRET);
   } catch (err) {
-    next(new UnauthorizedError(MESSAGE_AUTHENTICATION_ERROR));
+    throw new UnauthorizedError(MESSAGE_AUTHENTICATION_ERROR);
   }
 
   req.user = payload;

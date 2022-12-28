@@ -72,7 +72,9 @@ const updateUserInfo = (req, res, next) => {
       throw new NotFoundError(MESSAGE_NOT_FOUND_ERROR);
     })
     .catch((err) => {
-      if (err.name === 'CastError' || err.name === 'ValidationError') {
+      if (err.code === 11000) {
+        next(new ConflictRequestError(MESSAGE_CONFLICT_REQUEST_ERROR));
+      } else if (err.name === 'CastError' || err.name === 'ValidationError') {
         next(new RequestError(MESSAGE_REQUEST_ERROR));
       } else {
         next(err);

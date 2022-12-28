@@ -10,40 +10,13 @@ const {
 } = require('../utils/constants');
 
 const getMovies = (req, res, next) => {
-  Movie.find({})
+  Movie.find({ owner: req.user._id })
     .then((movies) => res.send(movies))
     .catch(next);
 };
 
 const createMovie = (req, res, next) => {
-  const {
-    movieId,
-    nameRU,
-    nameEN,
-    director,
-    country,
-    year,
-    duration,
-    description,
-    trailerLink,
-    image,
-    thumbnail,
-  } = req.body;
-
-  Movie.create({
-    movieId,
-    nameRU,
-    nameEN,
-    director,
-    country,
-    year,
-    duration,
-    description,
-    trailerLink,
-    image,
-    thumbnail,
-    owner: req.user._id,
-  })
+  Movie.create({ ...req.body, owner: req.user._id })
     .then((movie) => res.status(CREATED_STATUS).send(movie))
     .catch((err) => {
       if (err.name === 'ValidationError') {

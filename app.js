@@ -5,7 +5,7 @@ const mongoose = require('mongoose');
 const helmet = require('helmet');
 const { errors } = require('celebrate');
 const limiter = require('./middlewares/rate-limiter');
-const routes = require('./routes/index');
+const routes = require('./routes');
 const { handlerErrors } = require('./middlewares/handlerErrors');
 const { requestLogger, errorLogger } = require('./middlewares/logger');
 
@@ -28,7 +28,6 @@ const app = express();
 
 app.use('*', cors(options));
 app.use(helmet());
-app.use(limiter);
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
@@ -36,6 +35,8 @@ mongoose.set('strictQuery', true);
 mongoose.connect(DATA_BASE);
 
 app.use(requestLogger);
+
+app.use(limiter);
 
 app.use(routes);
 

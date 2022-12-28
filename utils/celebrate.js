@@ -9,7 +9,7 @@ const signinCheck = celebrate({
 
 const signupCheck = celebrate({
   body: Joi.object().keys({
-    name: Joi.string().min(2).max(30),
+    name: Joi.string().required().min(2).max(30),
     email: Joi.string().email().required(),
     password: Joi.string().required(),
   }).unknown(true),
@@ -35,7 +35,7 @@ const createMovieCheck = celebrate({
     trailerLink: Joi.string().required().regex(/(http|https):\/\/([\w.]+\/?)\S*/),
     image: Joi.string().required().regex(/(http|https):\/\/([\w.]+\/?)\S*/),
     thumbnail: Joi.string().required().regex(/(http|https):\/\/([\w.]+\/?)\S*/),
-  }).unknown(true),
+  }),
 });
 
 const deleteMovieCheck = celebrate({
